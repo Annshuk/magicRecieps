@@ -1,0 +1,14 @@
+@charset "utf-8";
+/* CSS Document */
+*{ margin:0; padding:0; -webkit-box-sizing: border-box; box-sizing:border-box}
+
+body{ font-family:Arial, Helvetica, sans-serif; font-size:11px; text-align:center; line-height:1}
+.wrapper{ text-align:left; width:100%; position:relative; margin:0 auto}
+h3{ font-size:13pt; line-height:1.5; font-weight:normal; text-align:center}
+.sub{font-size:9pt; text-align:center; display:block}
+.magic-layout{ width:950px; margin:10px auto; position:relative}
+.dish-layout{ position:relative}
+.dish-layout ul{ list-style:none;}
+.border{border:2px #0597B6 solid}
+.magic-layout .offset-in{padding:10px;}
+.magic-layout:after{content:""; display:table; clear:both}
