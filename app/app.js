@@ -11,5 +11,7 @@
 
 function MagicRecipeController($scope, apiJson){
 	var vm = this;
-	//console.log(apiJson.read())
+	apiJson.read().then(function(data){	
+		console.log(data)
+	})
 }
