@@ -15,46 +15,35 @@
 	 //define angular in app
 	 angular.bootstrap(document, ['app.recipe']);	
    });
+  
+ function MagicRecipeController($scope, $rootScope, $routeParams, $location, apiJson){	
+	$scope.SearchRecipe = function(msg){
+			$rootScope.$broadcast("SearchBroadcast", msg);	
+	} 
+}
+
+ function SearchController($scope, $rootScope, $routeParams, $location, apiJson){	   
+		$scope.search = $routeParams.id;		
+		$rootScope.$on("SearchBroadcast", function(event, data){
+		   $scope.SearchRecipe(data);
+	     });
+		//get search value
+	$scope.SearchRecipe = function(msg){			
+		$scope.value = (msg!== undefined)? '' : "No Data Available";
+			if(msg==''){
+					 $scope.value = "No Data Available"; 
+						return false;
+			}
+		 var searchKey = msg;
+			if(searchKey!=undefined){	
+			  $location.path("/search/"+searchKey);
+				console.log(searchKey)
+				 apiJson.read(searchKey).then(function(response){
+						console.log(response)
+					});
+				} else
+			return false;
+		};//end on click method
+}
 })()
 
-function MagicRecipeController($scope, $rootScope, $routeParams, $location, apiJson){	
-
-	$scope.SearchRecipe = function(){		
-			 $scope.value = ($scope.search!== undefined)? '' : "No Data Available";
-				if($scope.search==''){
-					 $scope.value = "No Data Available"; 
-						return false;
-					}
-				var searchKey = $scope.search;
-				   if(searchKey!=undefined){	
-					 $location.path("/search/"+searchKey)
-						 apiJson.read(searchKey).then(function(response){
-										console.log(response)
-						});
-					}
-				else return false;
-	}
-	
-}
-
-function SearchController($scope, $rootScope, $routeParams, $location, apiJson){	   
-		$scope.search = $routeParams.id;
-		 apiJson.read($scope.search).then(function(response){
-				console.log(response)
-			});
-		$scope.SearchRecipe = function(){
-			 $scope.value = ($scope.search!== undefined)? '' : "No Data Available";
-				if($scope.search==''){
-					 $scope.value = "No Data Available"; 
-						return false;
-					}
-				var searchKey = $scope.search;
-				   if(searchKey!=undefined){	
-					$location.path("/search/"+searchKey)
-	                       apiJson.read($scope.search).then(function(response){
-										console.log(response)
-						});
-					}
-				else return false;
-	}
-}
