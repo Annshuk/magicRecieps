@@ -11,30 +11,25 @@
 		})
 	   .controller('MagicRecipeController', MagicRecipeController)
 	   .controller('SearchController', SearchController)	   
-	   
+	   .directive('search', SearchDirective);
 	 //define angular in app
 	 angular.bootstrap(document, ['app.recipe']);	
    });
-  
- function MagicRecipeController($scope, $rootScope, $routeParams, $location, apiJson){	
-	$scope.SearchRecipe = function(msg){
-			$rootScope.$broadcast("SearchBroadcast", msg);	
-	} 
-}
-
- function SearchController($scope, $rootScope, $routeParams, $location, apiJson){	   
-		$scope.search = $routeParams.id;		
-		$rootScope.$on("SearchBroadcast", function(event, data){
-		   $scope.SearchRecipe(data);
-	     });
-		//get search value
-	$scope.SearchRecipe = function(msg){			
-		$scope.value = (msg!== undefined)? '' : "No Data Available";
-			if(msg==''){
+ 
+function SearchDirective($location, $routeParams, apiJson){
+return {
+    restrict: 'AEC',
+   // transclude: true,
+    scope: {},
+    link: function(scope, element, attrs, controllers) {
+		scope.search  = $routeParams.id
+        scope.SearchRecipe = function(){	
+	    var searchKey = scope.search;
+		   scope.value = (searchKey!== undefined)? '' : "No Data Available";
+			if(searchKey==''){
 					 $scope.value = "No Data Available"; 
 						return false;
-			}
-		 var searchKey = msg;
+			}	
 			if(searchKey!=undefined){	
 			  $location.path("/search/"+searchKey);
 				console.log(searchKey)
@@ -42,8 +37,15 @@
 						console.log(response)
 					});
 				} else
-			return false;
-		};//end on click method
+				return false;
+			};//end on click method*/
+    },
+    template: '<input type="text" id="searchValue" name="search" ng-model="search" /><input type="submit" ng-click="SearchRecipe()" />'
+  };
 }
+  
+function MagicRecipeController(){}
+function SearchController(){
+	}
 })()
 

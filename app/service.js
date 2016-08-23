@@ -5,7 +5,7 @@ angular.module("appFactory", []).factory('apiJson', ["$http", "$q",
 			    readJson.read = function(req){
 				return $http({
 					method:"jsonp",
-					url: "https://www.recipepuppy.com/api/?i="+req,					
+					url: "http://www.recipepuppy.com/api/?i="+req,					
 					data: '',  headers: {"Content-Type": "text/javascript" }				
 					}).then(function(response, status, headers, config){					
 								
