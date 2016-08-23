@@ -5,20 +5,12 @@
 <title>Magic Recipe</title>
 <link href="styles/recipe.css" rel="stylesheet">
 </head>
-<body ng-controller="MagicRecipeController">
+<body>
 	<div class="wrapper">
    	  <article class="magic-layout">
-        <div class="offset-in border">
-        	<h3>Magic Recipe</h3>
-            <span class="sub">Search you Fav. dishes</span>
-            <section class="dish-layout">
-            
-            </section>
-        <p>
-        <input type="text" ng-model="search" />
-        <input type="submit" ng-click="">
-        </p>      
-        </div>
+        
+          <div ng-view></div> 
+         
           
         </article>    
     </div>
